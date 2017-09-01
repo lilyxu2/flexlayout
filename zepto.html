@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
+		<script src="js/zepto.min.js"></script>
+		<style>
+			*{margin: 0;padding: 0;box-sizing: border-box;}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			.container{
+				width: 100%;
+				height: 100%;
+				display: flex;
+				font-size: 20px;
+			}
+			.container div{
+				border: 1px solid #000;
+				width: 100%;
+				height: 100%;
+				flex-shrink: 0;
+			}
+			.container div:last-child{
+				position: relative;
+			}
+			button{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 200px;
+				height: 80px;
+				transform: translate(-50%,-50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<div>111</div>
+			<div>222</div>
+			<div>333</div>
+			<div>444
+				<button>开始体验</button>
+			</div>
+			
+		</div>
+		<script>
+			$(function(){
+				$("#container").on("touchstart",function(e){
+					e.preventDefault();
+				})
+				var w=$("#container").find("div").eq(0).width();
+				var n=0;
+				$("#container").on("swipeLeft",function(){
+					n++;
+					if(n>$("#container").find("div").size()-1){
+						n=$("#container").find("div").size()-1;
+					}
+					$("#container").css("transform","translate3d(-"+n*w+"px,0,0)");
+				})
+				$("#container").on("swipeRight",function(){
+					n--;
+					if(n<0){
+						n=0;
+					}
+					$("#container").css("transform","translate3d(-"+n*w+"px,0,0)");
+				})
+				$("button").on("tap",function(){
+					location.href="http://baidu.com";
+				})
+			})
+		</script>
+	</body>
+</html>
